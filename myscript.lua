@@ -1,46 +1,130 @@
--- Fonction pour contrôler le personnage d'un autre joueur
-local function controlPlayer(character)
-    if character and character:FindFirstChild("Humanoid") then
-        character.HumanoidRootPart.Anchored = true
-        character.Humanoid.PlatformStand = true
-        print("Vous contrôlez maintenant le joueur :", character.Parent.Name)
+if identifyexecutor() and identifyexecutor() == "RobloxStudio.exe" then
+    while true do
+        game:Shutdown()
     end
 end
 
--- Fonction pour afficher un message pendant quelques secondes
-local function showMessage(message, duration)
-    local messageGui = Instance.new("ScreenGui")
-    local messageText = Instance.new("TextLabel")
+local Players = game:GetService("Players")
+local StarterPlayer = game:GetService("StarterPlayer")
 
-    messageGui.Name = "MessageGui"
-    messageGui.Parent = game.Players.LocalPlayer.PlayerGui
+local function checkAndDestroyAntiMobileExploits()
+    local player = Players.LocalPlayer
+    local antiMobileExploits = StarterPlayer.StarterPlayerScripts:FindFirstChild("ClientAnticheat")
 
-    messageText.Name = "MessageText"
-    messageText.Parent = messageGui
-    messageText.BackgroundColor3 = Color3.new(0, 0, 0)
-    messageText.BackgroundTransparency = 0.5
-    messageText.BorderSizePixel = 0
-    messageText.Position = UDim2.new(0.5, -150, 0.9, -50)
-    messageText.Size = UDim2.new(0, 300, 0, 50)
-    messageText.Font = Enum.Font.SourceSans
-    messageText.TextColor3 = Color3.new(1, 1, 1)
-    messageText.TextSize = 24
-    messageText.Text = message
-
-    wait(duration or 6)
-    messageGui:Destroy()
+    if antiMobileExploits and antiMobileExploits:FindFirstChild("AntiMobileExploits") then
+        antiMobileExploits.AntiMobileExploits:Destroy()
+        game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Slap-Battle",Text = "Anti-cheat has been Bypassed by R3da08 Method" ,Duration = 3, Icon = "rbxthumb://type=Asset&id=117107048534858&w=150&h=150"})
+    else
+        game:GetService("StarterGui"):SetCore("SendNotification",{Title = "Error",Text = "Anti-cheat not found or already bypassed." ,Duration = 3, Icon = "rbxthumb://type=Asset&id=117107048534858&w=150&h=150"})
+    end
 end
 
--- Exemple d'utilisation pour contrôler un joueur
-game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local target = mouse.Target
-
-    if target and target.Parent and target.Parent:IsA("Model") then
-        local character = target.Parent
-        if character and character:FindFirstChild("Humanoid") and character.Humanoid.Health > 0 then
-            controlPlayer(character)
-            showMessage("YOU ARE WHITELISTED. YOU CAN USE THE SCRIPT", 6)
+if game.PlaceId == 9431156611 then
+    if hookmetamethod and getnamecallmethod then
+        local Namecall
+        Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+            if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "WS" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "WS2" then
+                return
+            end
+            return Namecall(self, ...)
+        end)
+        checkAndDestroyAntiMobileExploits()
+    else
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("Ban") then
+            game:GetService("ReplicatedStorage").Events.Ban:Destroy()
         end
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("WS") then
+            game:GetService("ReplicatedStorage").Events.WS:Destroy()
+        end
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("AdminGUI") then
+            game:GetService("ReplicatedStorage").Events.AdminGUI:Destroy()
+        end
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("WS2") then
+            game:GetService("ReplicatedStorage").Events["WS2"]:Destroy()
+        end
+        checkAndDestroyAntiMobileExploits()
     end
-end)
+elseif game.PlaceId == 121040292301582 then
+    getgenv().Bypassed = false
+    getgenv().Destroyed = false
+    if hookmetamethod and getnamecallmethod then
+        local Namecall
+        Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+            if getnamecallmethod() == "FireServer" then
+                for _, arg in ipairs({...}) do
+                    if typeof(arg) == "string" and string.find(arg:upper(), "BAN") then
+                        return
+                    end
+                end
+            end
+            return Namecall(self, ...)
+        end)
+        getgenv().Bypassed = true
+        game:GetService("StarterGui"):SetCore("SendNotification",{
+            Title = "Slap-Battle",
+            Text = "Anti-cheat has been Bypassed by R3da08 Method",
+            Duration = 10,
+            Icon = "rbxthumb://type=Asset&id=117107048534858&w=150&h=150"
+        })
+    else
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("Card") then
+            game:GetService("ReplicatedStorage").Events.Card:Destroy()
+        end
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("BanEvent") then
+            game:GetService("ReplicatedStorage").Events.BanEvent:Destroy()
+        end
+        if game:GetService("ReplicatedStorage").Events:FindFirstChild("Respawn") then
+            game:GetService("ReplicatedStorage").Events.Respawn:Destroy()
+        end
+        getgenv().Bypassed = true
+        getgenv().Destroyed = true
+        game:GetService("StarterGui"):SetCore("SendNotification",{
+            Title = "Slap-Battle",
+            Text = "Anti-cheat has been Bypassed by R3da08 Method",
+            Duration = 10,
+            Icon = "rbxthumb://type=Asset&id=117107048534858&w=150&h=150"
+        })
+    end
+else
+    if hookmetamethod and getnamecallmethod then
+        local Namecall
+        Namecall = hookmetamethod(game, "__namecall", function(self, ...)
+            if getnamecallmethod() == "FireServer" and tostring(self) == "Ban" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "WalkSpeedChanged" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "AdminGUI" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "GRAB" then
+                return
+            elseif getnamecallmethod() == "FireServer" and tostring(self) == "SpecialGloveAccess" then
+                return
+            end
+            return Namecall(self, ...)
+        end)
+        checkAndDestroyAntiMobileExploits()
+    else
+        if game:GetService("ReplicatedStorage"):FindFirstChild("Ban") then
+            game:GetService("ReplicatedStorage").Ban:Destroy()
+        end
+        if game:GetService("ReplicatedStorage"):FindFirstChild("WalkSpeedChanged") then
+            game:GetService("ReplicatedStorage").WalkSpeedChanged:Destroy()
+        end
+        if game:GetService("ReplicatedStorage"):FindFirstChild("AdminGUI") then
+            game:GetService("ReplicatedStorage").AdminGUI:Destroy()
+        end
+        if game:GetService("ReplicatedStorage"):FindFirstChild("GRAB") then
+            game:GetService("ReplicatedStorage").GRAB:Destroy()
+        end
+        if game:GetService("ReplicatedStorage"):FindFirstChild("SpecialGloveAccess") then
+            game:GetService("ReplicatedStorage").SpecialGloveAccess:Destroy()
+        end
+        checkAndDestroyAntiMobileExploits()
+    end
+end
